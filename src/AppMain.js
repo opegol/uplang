@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CreateDeck from './components/CreateDeck';
 import Flashcard from './components/Flashcard';
 import SelectLanguage from './components/selectLanguage';
-// import SeenCards from './components/SeenCards';
+//import SeenCards from './components/SeenCards';
 import InitialCards from './initialCards';
 import './App.css';
 
@@ -11,7 +11,7 @@ import './App.css';
 function AppMain() {
   const [decks, setDecks] = useState([]);
   const [currentDeck, setCurrentDeck] = useState(null);
-  //const [cards, setCards] = useState(initialCards);
+  // const [cards, setCards] = useState(InitialCards);
   const [currentLanguage, setCurrentLanguage] = useState('french');
   
   const addDeck = (deckName, category) => {
@@ -27,14 +27,8 @@ function AppMain() {
   const deckCards = (cardCategory) => {
     if (cardCategory ==='all')
       return InitialCards[currentLanguage];
-    console.log(`Initcard: ${InitialCards[currentLanguage][1].word}`);
-    console.log(`category: ${cardCategory}`);
-    console.log(`language: ${currentLanguage}`);
-    console.log(`cardCategory: ${InitialCards[currentLanguage][1].word}`);
-    const nm = InitialCards[currentLanguage].filter((card) => {
-      console.log(`card: ${card.category}`);
-      return (card.category === cardCategory)})
-    return nm;
+   
+    InitialCards[currentLanguage].filter((card) => (card.category === cardCategory));
   };
 
   return (
@@ -56,7 +50,7 @@ function AppMain() {
           <h2>Deck: {currentDeck.name}</h2>
           {console.log(`currentDeck: ${currentDeck.name}`)}
           <Flashcard card={currentDeck.cards} />
-          {/*<Flashcard card={currentDeck.cards[0] || cards[0]} />*/}
+          
         </div>
       )}
 
