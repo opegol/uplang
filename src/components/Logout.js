@@ -1,13 +1,20 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import '../App.css';
 
 export default function Logout() {
+  const navigate = useNavigate();
   const { logout } = useAuth();
 
   function handleLogout() {
     logout();
-    // Optionally redirect after logging out
+    navigate("/login"); 
   }
 
-  return <button onClick={handleLogout}>Log Out</button>;
+  return (
+    <div className='logout'>
+        <button onClick={handleLogout}>Log Out</button>;
+    </div> 
+    );
 }

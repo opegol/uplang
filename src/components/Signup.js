@@ -1,9 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const navigate = useNavigate();
+  //const emailRef = useRef();
+  //const passwordRef = useRef();
+  const [email, setEmail] = useState('Email');
+  const [password, setPassword] = useState('Password');
   const { signup } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -13,10 +17,12 @@ export default function Signup() {
     try {
       setError('');
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-      // Redirect to another page if needed
-    } catch {
+      await signup(email, password);
+      //await signup(emailRef.current.value, passwordRef.current.value);
+      navigate("/login"); 
+    } catch (err){
       setError('Failed to create an account');
+      console.error(err)
     }
     setLoading(false);
   }
@@ -26,10 +32,13 @@ export default function Signup() {
       <h2>Sign Up</h2>
       {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>
-        <input type="email" ref={emailRef} required placeholder="Email" />
-        <input type="password" ref={passwordRef} required placeholder="Password" />
-        <button disabled={loading} type="submit">Sign Up</button>
+        {/*<input type="email" ref={emailRef} required placeholder="Email" />*/}
+        {/*<input type="password" ref={passwordRef} required placeholder="Password" />*/}
+        <input type="email" value={email} required onChange={(e)=>{setEmail(e.target.value)}}/>
+        <input type="password" value={password} required onChange={(e)=>{setPassword(e.target.value)}} />
+        <button disabled={loading} type="submit">Sign up</button>
       </form>
     </div>
   );
 }
+

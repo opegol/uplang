@@ -1,6 +1,6 @@
 import React from 'react';
-import Flashcard from './components/Flashcard';
-import SeenCards from './components/SeenCards';
+import Flashcard from './Flashcard';
+import SeenCards from './SeenCards';
 
 const allCards = [
   { id: 1, word: 'Hello', translation: 'Hola' },

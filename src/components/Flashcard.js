@@ -2,36 +2,25 @@ import React, { useState } from 'react';
 import './Flashcard.css';
 
 export default function Flashcard({ card }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
+  
+  const flipCard = () => setFlipped(!flipped);
 
-  const flipCard = () => {
-    setFlipped(!flipped);
-  };
-
-  const shareCard = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: `Flashcard: ${card.word}`,
-        text: `Learn this word: ${card.word} - ${card.translation}`,
-        url: window.location.href, // URL of the current page (you can set it to the app link)
-      })
-        .then(() => console.log('Card shared successfully!'))
-        .catch((error) => console.error('Error sharing the card:', error));
-    } else {
-      alert('Web Share API not supported in your browser.');
-    }
+  const nextCard = () => {
+    setFlipped(false);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % card.length);
   };
 
   return (
-    <div className={`flashcard ${flipped ? 'flipped' : ''}`} onClick={flipCard}>
-      <div className="front">
-        {card.word}
+    <div>
+      <div className={`flashcard ${flipped ? 'flipped' : ''}`} onClick={flipCard}>
+        {console.log(`currentIndex: ${currentIndex}`)}
+        {console.log(`word: ${card}`)}
+          <div className={`front ${flipped ? '' : 'flipped'}`}>{card[currentIndex].word}</div>
+          <div className="back">{card[currentIndex].translation}</div> 
       </div>
-      <div className="back">
-        {card.translation}
-      </div>
-      <button onClick={shareCard} className="share-btn">Share Card</button>
+      <button onClick={nextCard}>Next Card</button>
     </div>
   );
 }
-

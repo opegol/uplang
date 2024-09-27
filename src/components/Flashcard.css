@@ -6,6 +6,7 @@
   perspective: 1000px;
   margin: 20px auto;
   cursor: pointer;
+  animation: fadeIn 0.5s;
 }
 
 .flashcard div {
@@ -20,6 +21,14 @@
   border: 1px solid #ccc;
 }
 
+@keyframes nextCard {
+    0% { background-color: #f0f0f0;}
+    25% { background-color: #ad7272;}
+    50% { background-color: #7d2d2d;}
+    100% { background-color: #efe0e0;}
+}
+
+
 .front {
   background-color: #fff;
   transform: rotateY(0deg);
@@ -28,6 +37,11 @@
 .back {
   background-color: #f0f0f0;
   transform: rotateY(180deg);
+}
+
+.flipped {
+    animation-name: nextCard;
+    animation-duration: 4s;
 }
 
 .flipped .front {
